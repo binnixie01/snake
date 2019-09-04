@@ -1,72 +1,77 @@
 # imports
-from tkinter import *
-import turtle
-from datetime import datetime
-import winsound
-import mysql.connector as sqltor
+
 import time
 import random
+import turtle
+import winsound
+import mysql.connector as sqltor
+from tkinter import *
 from tkinter import ttk
-
+from datetime import datetime
    
     
     
 #MYSQL CONNECTIVITY
-mycon= sqltor.connect(host='localhost',user='root',passwd='tiger',database='score_record',charset='utf8')
+mycon= sqltor.connect(host='localhost',
+                      user='root',
+                      passwd='tiger',
+                      database='score_record',
+                      charset='utf8')
 q=mycon.cursor()
-q.execute("CREATE TABLE IF NOT EXISTS low(USERNAME varchar(20) ,AGE INTEGER(10),DATE_TIME DATETIME,SCORE integer(5) default 0)")
+q.execute("CREATE TABLE IF NOT EXISTS low(USERNAME varchar(20) not null,AGE INTEGER(10) not null,DATE_TIME DATETIME,SCORE integer(5) default 0)")
 q.execute("select max(score) from low")
 data1=q.fetchall()
 
 for score in data1:
     global high_point
     high_point=score
+    
 #SCORE RECORD
-def io():
+def score_record():
     
     winsound.PlaySound("bin.wav", winsound.SND_ASYNC)
     global iot
     iot = Tk()
-    iot.geometry("1366x500")
+    iot.geometry("850x400")
+    iot.title("score record")
     frame = Frame(iot)
     frame.pack()
-
     tree = ttk.Treeview(frame, columns = (1,2,3,4), height = 5, show = "headings")
-    tree.pack(side = 'left')
-    
+    tree.pack(side = 'left')   
+
     tree.heading(1, text="USERNAME")
     tree.heading(2, text="AGE")
     tree.heading(3, text="DATE_TIME")
-    tree.heading(4, text="SCORE")
-    
+    tree.heading(4, text="SCORE")   
+
     tree.column(1, width = 200)
     tree.column(2, width = 200)
     tree.column(3, width = 200)
     tree.column(4, width = 200)
-    iot.configure( background="skyblue3", relief="flat")
-    
+
+    iot.configure( background="skyblue3", relief="flat")  
     scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
     scroll.pack(side = 'right', fill = 'y')
-
     tree.configure(yscrollcommand=scroll.set)
 
+    
     q.execute("select * from low")
     data9=q.fetchall()
     for row in data9:
         gh=row
         datal = [ [gh] ]
-
         for val in datal:
             tree.insert('', 'end', values = (val[0]) )
 
     iot.mainloop()
 
-# curent score
-def bins():
+# current score display
+def score_display():
     global itt
    
     itt = Tk()
     itt.geometry("850x200")
+    itt.title("score")
     frame1 = Frame(itt)
     frame1.pack()
     
@@ -105,7 +110,6 @@ def play():
     # Score
     point = 0
     
-    
     global wn
     # Set up the screen
     wn = turtle.Screen()
@@ -142,97 +146,98 @@ def play():
     pen.hideturtle()
     pen.goto(0, 260)
     pen.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "bold"))
-    board=turtle.Turtle()
-    board.pencolor("black")
-    board.pensize(5)
-    board.setheading(0)
 
-    board.up()
-    board.goto(313,380)
-    board.down()
-    board.begin_fill()
+    bls1=turtle.Turtle()
+    bls1.pencolor("black")
+    bls1.pensize(5)
+    bls1.setheading(0)
+
+    bls1.up()
+    bls1.goto(313,380)
+    bls1.down()
+    bls1.begin_fill()
     # draw top
-    board.forward(370)
+    bls1.forward(370)
     # draw right
-    board.right(90)
-    board.forward(740)
+    bls1.right(90)
+    bls1.forward(740)
     # draw bottom
-    board.right(90)
-    board.forward(370)
+    bls1.right(90)
+    bls1.forward(370)
     # draw left
-    board.right(90)
-    board.forward(740)
+    bls1.right(90)
+    bls1.forward(740)
    
-    board.end_fill()
+    bls1.end_fill()
 
-    beard=turtle.Turtle()
-    beard.pencolor("black")
-    beard.pensize(5)
-    beard.setheading(0)
+    bls=turtle.Turtle()
+    bls.pencolor("black")
+    bls.pensize(5)
+    bls.setheading(0)
 
-    beard.up()
-    beard.goto(-683,380)
-    beard.down()
-    beard.begin_fill()
+    bls.up()
+    bls.goto(-683,380)
+    bls.down()
+    bls.begin_fill()
     # draw top
-    beard.forward(370)
+    bls.forward(370)
     # draw right
-    beard.right(90)
-    beard.forward(740)
+    bls.right(90)
+    bls.forward(740)
     # draw bottom
-    beard.right(90)
-    beard.forward(370)
+    bls.right(90)
+    bls.forward(370)
     # draw left
-    beard.right(90)
-    beard.forward(740)
+    bls.right(90)
+    bls.forward(740)
    
-    beard.end_fill()
+    bls.end_fill()
 
-    board1=turtle.Turtle()
-    board1.pencolor("black")
-    board1.pensize(5)
-    board1.setheading(0)
+    blu1=turtle.Turtle()
+    blu1.pencolor("black")
+    blu1.pensize(5)
+    blu1.setheading(0)
 
-    board1.up()
-    board1.goto(-310,410)
-    board1.down()
-    board1.begin_fill()
+    blu1.up()
+    blu1.goto(-310,410)
+    blu1.down()
+    blu1.begin_fill()
     # draw top
-    board1.forward(620)
+    blu1.forward(620)
     # draw right
-    board1.right(90)
-    board1.forward(100)
+    blu1.right(90)
+    blu1.forward(100)
     # draw bottom
-    board1.right(90)
-    board1.forward(620)
+    blu1.right(90)
+    blu1.forward(620)
     # draw left
-    board1.right(90)
-    board1.forward(100)
+    blu1.right(90)
+    blu1.forward(100)
    
-    board1.end_fill()
+    blu1.end_fill()
 
-    board2=turtle.Turtle()
-    board2.pencolor("black")
-    board2.pensize(5)
-    board2.setheading(0)
+    blu2=turtle.Turtle()
+    blu2.pencolor("black")
+    blu2.pensize(5)
+    blu2.setheading(0)
 
-    board2.up()
-    board2.goto(-310,-313)
-    board2.down()
-    board2.begin_fill()
+    blu2.up()
+    blu2.goto(-310,-313)
+    blu2.down()
+    blu2.begin_fill()
     # draw top
-    board2.forward(620)
+    blu2.forward(620)
     # draw right
-    board2.right(90)
-    board2.forward(100)
+    blu2.right(90)
+    blu2.forward(100)
     # draw bottom
-    board2.right(90)
-    board2.forward(620)
+    blu2.right(90)
+    blu2.forward(620)
     # draw left
-    board2.right(90)
-    board2.forward(100)
+    blu2.right(90)
+    blu2.forward(100)
    
-    board2.end_fill()
+    blu2.end_fill()
     
     # Functions
     def go_up():
@@ -296,7 +301,6 @@ def play():
             age=pas.get()
             
             print('USERNAME => ',name,'\nAGE => ',age,'\nDATE AND TIME => ',dtr,'\nSCORE=> ',point)   
-            q.execute("CREATE TABLE IF NOT EXISTS low(USERNAME varchar(20) ,AGE INTEGER(10),DATE_TIME DATETIME,SCORE integer(5) default 0)")
             q.execute("INSERT INTO low(USERNAME,AGE,DATE_TIME,SCORE) VALUES('{}','{}','{}',{})".format(name,age,dtr,point))
             mycon.commit()
             
@@ -308,7 +312,7 @@ def play():
             pen.clear()
             pen.write("Score: {}  High Score: {}".format(point, high_point), align="center", font=("Courier", 24, "bold")) 
             turtle.bye()   
-            bins()
+            score_display()
             
             break
                   
@@ -334,9 +338,6 @@ def play():
             # Increase the score
             point += 10
              
-          
-            
-            
             pen.clear()
             pen.write("Score: {}  High Score: {}".format(point, high_point), align="center", font=("Courier", 24, "bold")) 
 
@@ -371,7 +372,6 @@ def play():
                 age=pas.get()
 
                 print('USERNAME => ',name,'AGE => ',age,'\nDATE AND TIME => ',dtr,'\nSCORE=> ',point)   
-                q.execute("CREATE TABLE IF NOT EXISTS low(USERNAME varchar(20) ,AGE INTEGER(10),DATE_TIME DATETIME,SCORE integer(5))")
                 q.execute("INSERT INTO low(USERNAME,AGE,DATE_TIME,SCORE) VALUES('{}','{}','{}',{})".format(name,age,dtr,point))
                 mycon.commit()
                 
@@ -383,7 +383,7 @@ def play():
                 pen.clear()
                 pen.write("Score: {}  High Score: {}".format(point, high_point), align="center", font=("Courier", 24, "bold"))
                 turtle.bye()
-                bins()
+                score_display()
                 
                 break
    
@@ -396,11 +396,6 @@ def play():
 def close():
     l=quit()
 
-
-
-
-   
-      
 # menu
 def menu():
     root.destroy()
@@ -423,7 +418,7 @@ def menu():
     b3.place(x=470,y=250)
     
    
-    b5=Button(menu2,text='SCORE RECORDS',width=15, bg ='lightblue3',font= ("Tempus Sans ITC",40),command=io)
+    b5=Button(menu2,text='SCORE RECORDS',width=15, bg ='lightblue3',font= ("Tempus Sans ITC",40),command=score_record)
     b5.place(x=470,y=350)
     b6=Button(menu2,text='QUIT GAME',width=15, bg ='lightblue3',font= ("Tempus Sans ITC",40),command=close)
     b6.place(x=470,y=450)
@@ -434,7 +429,7 @@ def menu():
 def jk():
     winsound.PlaySound("bin.wav", winsound.SND_ASYNC)
      #LOGIN
-    
+            
     global root
     root=Tk()
     C = Canvas(root, height=768, width=1366) 
@@ -468,16 +463,16 @@ def jk():
     e1.place(x=640,y=260)
     e2= Entry(root,textvar=pas,width=20,font=("OCR A Extended", 30))
     e2.place(x=640,y=360)
-
+    
     #button
     b1=Button(text='CLICK ME',font=("Tempus Sans ITC",30), bg ='light blue',command = menu)
     b1.place(x=600,y=580)
+    
     root.mainloop()
 
-
-
-
-
 jk()
+
+
+
 
 
